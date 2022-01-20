@@ -1,8 +1,6 @@
 const { response } = require('express');
 const request = require('request');
 
-const breedName = process.argv.slice(2);
-
 const fetchBreedDescription = function(breedName, callback) {
   request(`https://api.thecatapi.com/v1/breeds/search?q=${breedName}`, (error, response, body) => {
     if (error) {
@@ -17,9 +15,9 @@ const fetchBreedDescription = function(breedName, callback) {
     let description = breed.description;
     console.log(`breed: ${description}`);
     return (`breed: ${description}`);
-})
-}
+  });
+};
 
-const callback = () => console.log(`Breed name "${breedName}" doesn't exist!`);
+// const callback = () => console.log(`Breed name "${breedName}" doesn't exist!`);
 
-fetchBreedDescription(breedName, callback);
+module.exports = { fetchBreedDescription };
